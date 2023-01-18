@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tweeteroo.api.dto.UserDTO;
-import com.tweeteroo.api.model.User;
-import com.tweeteroo.repository.UserRepository;
+import com.tweeteroo.api.dto.AuthorDTO;
+import com.tweeteroo.api.model.Author;
+import com.tweeteroo.api.repository.AuthorRepository;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/sign-up")
+public class AuthorController {
 
     @Autowired
-    private UserRepository repository;
+    private AuthorRepository repository;
     
     @GetMapping
     public String heySpring(){
@@ -24,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@RequestBody UserDTO req) {
-        repository.save(new User(req));
+    public String createUser(@RequestBody AuthorDTO req) {
+        repository.save(new Author(req));
         return "OK";
     }
 }
