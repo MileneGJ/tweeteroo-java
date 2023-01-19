@@ -11,6 +11,8 @@ import com.tweeteroo.api.dto.AuthorDTO;
 import com.tweeteroo.api.model.Author;
 import com.tweeteroo.api.repository.AuthorRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/sign-up")
 public class AuthorController {
@@ -24,7 +26,7 @@ public class AuthorController {
     }
 
     @PostMapping
-    public String createUser(@RequestBody AuthorDTO req) {
+    public String createUser(@RequestBody @Valid AuthorDTO req) {
         repository.save(new Author(req));
         return "OK";
     }

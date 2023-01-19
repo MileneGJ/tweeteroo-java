@@ -1,5 +1,11 @@
 package com.tweeteroo.api.dto;
 
-public record AuthorDTO(String name, String avatar) {
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthorDTO(
+    @NotBlank
+    String name,
+    @NotBlank 
+    String avatar) {
     
 }
