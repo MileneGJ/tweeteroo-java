@@ -37,7 +37,7 @@ public class TweetService {
             int initialTweet = lengthTweets -1;
             if(page.isPresent()) initialTweet = lengthTweets -1 - (page.get()-1)*5;
             for(int i=0; i<5; i++){
-                if((initialTweet-i)>=0){
+                if((initialTweet-i)>0){
                 clipedTweets.add(allTweets.get(initialTweet-i));
                 } else {
                 clipedTweets.add(allTweets.get(0));
@@ -48,6 +48,5 @@ public class TweetService {
         } else {
         return allTweets;
         }
-    }
-    
+    }    
 }
