@@ -1,5 +1,6 @@
 package com.tweeteroo.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,24 @@ public class TweetService {
     }
 
     public List<Tweets> getByPage(Optional<Integer> page) {
-        return repository.findAll();
+        List<Tweets> allTweets = repository.findAll();
+        int lengthTweets = allTweets.size();
+        if(lengthTweets>5){
+            List<Tweets> clipedTweets = new ArrayList<>();
+            int initialTweet = lengthTweets -1;
+            if(page.isPresent()) initialTweet = lengthTweets -1 - (page.get()-1)*5;
+            for(int i=0; i<5; i++){
+                if((initialTweet-i)>=0){
+                clipedTweets.add(allTweets.get(initialTweet-i));
+                } else {
+                clipedTweets.add(allTweets.get(0));
+                break;
+                }
+            }
+            return clipedTweets;
+        } else {
+        return allTweets;
+        }
     }
     
 }
