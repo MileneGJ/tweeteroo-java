@@ -1,15 +1,13 @@
 package com.tweeteroo.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tweeteroo.api.dto.AuthorDTO;
-import com.tweeteroo.api.model.Author;
-import com.tweeteroo.api.repository.AuthorRepository;
+import com.tweeteroo.api.service.AuthorService;
 
 import jakarta.validation.Valid;
 
@@ -18,16 +16,11 @@ import jakarta.validation.Valid;
 public class AuthorController {
 
     @Autowired
-    private AuthorRepository repository;
-    
-    @GetMapping
-    public String heySpring(){
-        return "Hey Spring";
-    }
+    private AuthorService service;
 
     @PostMapping
     public String createUser(@RequestBody @Valid AuthorDTO req) {
-        repository.save(new Author(req));
+        service.createUser(req);
         return "OK";
     }
 }
