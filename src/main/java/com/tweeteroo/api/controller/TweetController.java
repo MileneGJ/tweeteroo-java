@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import com.tweeteroo.api.service.TweetService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/tweets")
 public class TweetController {
@@ -26,18 +29,20 @@ public class TweetController {
     private TweetService service;
 
     @GetMapping
-    public List<Tweets> listAll(@RequestParam("page") Optional<Integer> page) {
-        return service.getByPage(page);
+    public ResponseEntity<List<Tweets>> listAll(@RequestParam("page") Optional<Integer> page) {
+        List<Tweets> tweetsPage = service.getByPage(page);
+        return ResponseEntity.ok().body(tweetsPage);
     }
 
     @GetMapping("/{username}")
-    public List<Tweets> listByUser(@PathVariable String username) {
-        return service.getByUsername(username);
+    public ResponseEntity<List<Tweets>> listByUser(@PathVariable String username) {
+        List<Tweets> tweetsPage = service.getByUsername(username);
+        return ResponseEntity.ok().body(tweetsPage);
     }
     
     @PostMapping
-    public String createTweet(@RequestBody @Valid TweetDTO req) {
+    public ResponseEntity<String> createTweet(@RequestBody @Valid TweetDTO req) {
         service.createTweet(req);
-        return "OK";
+        return ResponseEntity.ok("OK");
     }
 }
